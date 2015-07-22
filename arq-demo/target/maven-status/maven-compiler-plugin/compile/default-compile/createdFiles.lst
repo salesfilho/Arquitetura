@@ -1,0 +1,6 @@
+br/prof/salesfilho/arq/demo/service/ContatoService.class
+br/prof/salesfilho/arq/demo/config/ApplicationConfig.class
+br/prof/salesfilho/arq/demo/persistence/ContatoDAO.class
+br/prof/salesfilho/arq/demo/view/ContatoCrudMBean.class
+br/prof/salesfilho/arq/demo/model/QContato.class
+br/prof/salesfilho/arq/demo/model/Contato.class
