@@ -52,14 +52,29 @@ public class GenericCrudMBean<T, K extends Serializable> extends BaseMBean {
     }
 
     public List<T> getList() {
-        if (list.isEmpty() || list == null) {
-            this.listAll();
-        }
-        return list;
+        return this.list;
     }
 
-    private void listAll() {
-        this.list = this.genericService.findAll();
+    public void addToList(List<T> list) {
+        if (list != null && !list.isEmpty()) {
+            this.list.addAll(list);
+        }
+    }
+
+    public void removeFromList(List<T> list) {
+        if (list != null && !list.isEmpty()) {
+            this.list.removeAll(list);
+        }
+    }
+
+    public void removeItemFromList(T item) {
+        if (item != null) {
+            this.list.remove(item);
+        }
+    }
+
+    public void clearList() {
+        this.list.clear();
     }
 
     /**
@@ -75,10 +90,10 @@ public class GenericCrudMBean<T, K extends Serializable> extends BaseMBean {
     public void processInsert() {
         try {
             genericService.insert(this.bean);
-            addMessage(FacesMessage.SEVERITY_INFO, "Incusão: ", "Operação realizada com sucesso." );
+            addMessage(FacesMessage.SEVERITY_INFO, "Incusão: ", "Operação realizada com sucesso.");
             createNewEntityBean();
         } catch (Exception e) {
-            addMessage(FacesMessage.SEVERITY_ERROR, "Falha ao inserir registro.", e.getMessage() );
+            addMessage(FacesMessage.SEVERITY_ERROR, "Falha ao inserir registro.", e.getMessage());
             Logger.getLogger(GenericCrudMBean.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -99,9 +114,9 @@ public class GenericCrudMBean<T, K extends Serializable> extends BaseMBean {
     public void processUpdate() {
         try {
             genericService.update(this.bean);
-            addMessage(FacesMessage.SEVERITY_INFO, "Alteração: ", "Operação realizada com sucesso." );
+            addMessage(FacesMessage.SEVERITY_INFO, "Alteração: ", "Operação realizada com sucesso.");
         } catch (Exception e) {
-            addMessage(FacesMessage.SEVERITY_ERROR, "Falha ao atualizar registro.", e.getMessage() );
+            addMessage(FacesMessage.SEVERITY_ERROR, "Falha ao atualizar registro.", e.getMessage());
             Logger.getLogger(GenericCrudMBean.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -113,10 +128,12 @@ public class GenericCrudMBean<T, K extends Serializable> extends BaseMBean {
      */
     public void processDelete(K id) {
         try {
-            genericService.delete(genericService.findOne(id));
-            addMessage(FacesMessage.SEVERITY_INFO, "Exclusão: ", "Operação realizada com sucesso." );
+            T auxBean = genericService.findOne(id);
+            genericService.delete(auxBean);
+            removeItemFromList(auxBean);
+            addMessage(FacesMessage.SEVERITY_INFO, "Exclusão: ", "Operação realizada com sucesso.");
         } catch (Exception e) {
-            addMessage(FacesMessage.SEVERITY_ERROR, "Falha ao excluir registro.", e.getMessage() );
+            addMessage(FacesMessage.SEVERITY_ERROR, "Falha ao excluir registro.", e.getMessage());
             Logger.getLogger(GenericCrudMBean.class.getName()).log(Level.SEVERE, null, e);
         }
     }

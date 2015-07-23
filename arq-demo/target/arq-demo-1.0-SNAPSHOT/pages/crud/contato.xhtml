@@ -32,8 +32,8 @@
                 <!-- Resultado da pesquisa -->
                 <p:commandButton value="Novo" actionListener="#{contatoCrudMBean.changeToInsertState()}" update="@form"/>  
 
-                <p:dataTable var="contato" value="#{contatoCrudMBean.contatos}"
-                             rendered="#{not empty contatoCrudMBean.contatos}"
+                <p:dataTable var="contato" value="#{contatoCrudMBean.list}"
+                             rendered="#{not empty contatoCrudMBean.list}"
                              paginator="true" paginatorPosition="bottom"
                              rows="10"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -61,7 +61,7 @@
                         </p:commandButton>
                     </p:column>
                     <f:facet name="footer">  
-                        Total de #{fn:length(contatoCrudMBean.contatos)} registros
+                        Total de #{fn:length(contatoCrudMBean.list)} registros
                     </f:facet>  
                 </p:dataTable>
 

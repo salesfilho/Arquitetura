@@ -26,18 +26,9 @@ public class ContatoCrudMBean extends GenericCrudMBean<Contato, Long> {
     @Inject
     private ContatoService contatoService;
     private String stringBusca = "";
-    private List<Contato> contatos;
 
     public ContatoCrudMBean() {
         setCurrentState(SEARCH_STATE);
-    }
-
-    public List<Contato> getContatos() {
-        return contatos;
-    }
-
-    public void setContatos(List<Contato> contatos) {
-        this.contatos = contatos;
     }
 
     public String getStringBusca() {
@@ -49,8 +40,9 @@ public class ContatoCrudMBean extends GenericCrudMBean<Contato, Long> {
     }
 
     public List<Contato> searchByName() {
-        this.contatos = contatoService.findByName(this.stringBusca);
-        return contatos;
+        clearList();
+        addToList(contatoService.findByName(this.stringBusca));
+        return getList();
     }
 
 }
