@@ -41,7 +41,7 @@ public class ApplicationConfig {
             stream = getClass().getResourceAsStream("/database.properties");
             if (stream != null) {
                 dataBaseProperties.load(stream);
-                System.out.println("Configuracoes de banco carregadas...");
+                System.out.println("Configuracoes de banco carregadas da aplicação...");
                 stream.close();
             }else{
                 System.out.println("Arquivo de configuraçao nao encontrado");
