@@ -48,7 +48,7 @@ public class Contato extends AbstractBean<Long> {
 
     @Override
     public String toString() {
-        return super.toString() + "{nome=" + this.nome + ", email=" + this.email + "}"; //To change body of generated methods, choose Tools | Templates.
+        return super.toString() + "{nome=" + this.nome + ", email=" + this.email + "}"; 
     }
 
 }

@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-public class PersistenceJPAConfig {
+public class ArquiteturaPersistenceConfig {
 
     @Inject
     private Properties dataBaseProperties;

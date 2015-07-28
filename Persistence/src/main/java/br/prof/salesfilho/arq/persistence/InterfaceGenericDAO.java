@@ -6,6 +6,7 @@
 package br.prof.salesfilho.arq.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -23,7 +24,21 @@ public interface InterfaceGenericDAO<T, K> {
 
     public T findOne(K key);
 
+    public K getId(T entity);
+
+    public void insertAll(List<T> entityList);
+
+    public void updateAll(List<T> entityList);
+
+    public void deletetAll(List<T> entityList);
+
     public List<T> findAll();
+
+    public List<T> findPage(int startingAt, int maxPerPage);
+
+    public List<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters);
+
+    public int countAll();
 
     public void checkBeforeInsert(T entity) throws PersistenceException;
 

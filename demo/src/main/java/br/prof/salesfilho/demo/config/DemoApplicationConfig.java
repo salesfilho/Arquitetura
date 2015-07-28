@@ -5,7 +5,7 @@
  */
 package br.prof.salesfilho.demo.config;
 
-import br.prof.salesfilho.arq.persistence.config.PersistenceJPAConfig;
+import br.prof.salesfilho.arq.persistence.config.ArquiteturaPersistenceConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Import;
  * @author salesfilho
  */
 @Configuration
-@Import({PersistenceJPAConfig.class})
+@Import({ArquiteturaPersistenceConfig.class})
 @ComponentScan(basePackages = {"br.prof.salesfilho.demo.service", "br.prof.salesfilho.demo.persistence", "br.prof.salesfilho.demo.view"})
 public class DemoApplicationConfig {
 

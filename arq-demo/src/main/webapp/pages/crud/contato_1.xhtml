@@ -5,6 +5,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"   
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
@@ -26,23 +27,20 @@
                 <h:inputText value="#{contatoCrudMBean.stringBusca}" size="30"/>  
                 <p:commandButton value="Pesquisar" actionListener="#{contatoCrudMBean.searchByName()}" update="@form"/>  
 
+                <p:separator />
+
                 <!-- Resultado da pesquisa -->
                 <p:commandButton value="Novo" actionListener="#{contatoCrudMBean.changeToInsertState()}" update="@form"/>  
 
-                <p:dataTable id="search_lazyDataTable" 
-                             value="#{contatoCrudMBean.list}"
-                             var="contato"
-                             rendered="true"
-                             lazy="true"
+                <p:dataTable var="contato" value="#{contatoCrudMBean.list}"
+                             rendered="#{not empty contatoCrudMBean.list}"
                              paginator="true" paginatorPosition="bottom"
                              rows="10"
-                             selection="#{contatoCrudMBean.bean}"
-                             selectionMode="single"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
 
                     <f:facet name="header">
-                        Resultado
+                        Resultado da consulta
                     </f:facet>
 
                     <p:column headerText="ID" sortBy="#{contato.id}">
@@ -63,7 +61,7 @@
                         </p:commandButton>
                     </p:column>
                     <f:facet name="footer">  
-                        Total de #{contatoCrudMBean.list.rowCount} registros
+                        Total de #{fn:length(contatoCrudMBean.list)} registros
                     </f:facet>  
                 </p:dataTable>
 
@@ -73,51 +71,9 @@
 
     <!-- Bloco de Listagem -->
     <ui:define name="listBlock">
-        <h:panelGrid columns="1" id="panel_listBlock">  
-            <p:column>
-
-                <p:commandButton value="Novo" actionListener="#{contatoCrudMBean.changeToInsertState()}" update="@form"/>  
-
-                <p:dataTable id="list_lazyDataTable" 
-                             value="#{contatoCrudMBean.list}"
-                             var="contato"
-                             rendered="true"
-                             lazy="true"
-                             paginator="true" paginatorPosition="bottom"
-                             rows="10"
-                             selection="#{contatoCrudMBean.bean}"
-                             selectionMode="single"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15">
-
-                    <f:facet name="header">
-                        Resultado
-                    </f:facet>
-
-                    <p:column headerText="ID" sortBy="#{contato.id}">
-                        <h:outputText value="#{contato.id}" />
-                    </p:column>
-
-                    <p:column headerText="Nome" sortBy="#{contato.nome}" filterBy="#{contato.nome}">
-                        <h:outputText value="#{contato.nome}" />
-                    </p:column>
-
-                    <p:column headerText="E-mail" sortBy="#{contato.email}" filterBy="#{contato.email}">
-                        <h:outputText value="#{contato.email}" />
-                    </p:column>
-                    <p:column headerText="AÇOES" style="alignment-adjust: central">
-                        <p:commandButton actionListener="#{contatoCrudMBean.startUpdate(contato.id)}" update="@form" icon="ui-icon-pencil" title="Editar" />
-                        <p:commandButton actionListener="#{contatoCrudMBean.processDelete(contato.id)}" update="@form" icon="ui-icon-close" title="Excluir" >
-                            <p:confirm header="Confirmação" message="Tem certeza que deseja excluir o registro?" icon="ui-icon-alert"/>
-                        </p:commandButton>
-                    </p:column>
-                    <f:facet name="footer">  
-                        Total de #{contatoCrudMBean.list.rowCount} registros
-                    </f:facet>  
-                </p:dataTable>
-
-            </p:column>
-        </h:panelGrid>
+        <h:panelGrid columns="1" id="panel_listBlock" >  
+            <!-- para uso futuro -->
+        </h:panelGrid>  
     </ui:define>  
 
     <!-- Bloco de Insert -->
@@ -130,11 +86,10 @@
             <h:outputLabel value="Nome"/>  
             <h:inputText value="#{contatoCrudMBean.bean.nome}" size="30" />  
             <h:outputLabel value="E-mail"/>  
-            <h:inputText value="#{contatoCrudMBean.bean.email}" size="30"/>
-            
-            <p:commandButton value="Cadastrar" actionListener="#{contatoCrudMBean.processInsert()}" update="@form"/>  
-            <p:commandButton value="Cancelar" actionListener="#{contatoCrudMBean.changeToListState()}" update="@form"/>  
+            <h:inputText value="#{contatoCrudMBean.bean.email}" size="30"/>  
         </h:panelGrid>  
+        <p:commandButton value="Adicionar" actionListener="#{contatoCrudMBean.processInsert()}" update="@form"/>  
+        <p:commandButton value="Cancelar" actionListener="#{contatoCrudMBean.changeToSearchState()}" update="@form"/>  
 
     </ui:define>  
 
@@ -150,8 +105,8 @@
             <h:outputLabel value="E-mail"/>  
             <h:inputText value="#{contatoCrudMBean.bean.email}" size="90"/>  
         </h:panelGrid>  
-        <p:commandButton value="Salvar" actionListener="#{contatoCrudMBean.processUpdate()}" />
-        <p:commandButton value="Voltar" actionListener="#{contatoCrudMBean.changeToListState()}" update="@form"/>
+        <p:commandButton value="Editar" actionListener="#{contatoCrudMBean.processUpdate()}" />
+        <p:commandButton value="Voltar" actionListener="#{contatoCrudMBean.changeToSearchState()}" update="@form"/>
 
     </ui:define>  
 

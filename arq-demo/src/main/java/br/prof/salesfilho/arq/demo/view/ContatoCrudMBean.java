@@ -8,6 +8,7 @@ package br.prof.salesfilho.arq.demo.view;
 import br.prof.salesfilho.arq.demo.model.Contato;
 import br.prof.salesfilho.arq.demo.service.ContatoService;
 import br.prof.salesfilho.arq.view.crud.GenericCrudMBean;
+import br.prof.salesfilho.arq.view.primefaces.GenericLazyDataModel;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
@@ -25,10 +26,11 @@ public class ContatoCrudMBean extends GenericCrudMBean<Contato, Long> {
 
     @Inject
     private ContatoService contatoService;
+
     private String stringBusca = "";
 
     public ContatoCrudMBean() {
-        setCurrentState(SEARCH_STATE);
+        setCurrentState(LIST_STATE);
     }
 
     public String getStringBusca() {
@@ -40,9 +42,7 @@ public class ContatoCrudMBean extends GenericCrudMBean<Contato, Long> {
     }
 
     public List<Contato> searchByName() {
-        clearList();
-        addToList(contatoService.findByName(this.stringBusca));
-        return getList();
+        return contatoService.findByName(this.stringBusca);
     }
 
 }

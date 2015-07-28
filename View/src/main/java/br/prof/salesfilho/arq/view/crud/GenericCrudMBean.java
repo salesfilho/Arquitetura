@@ -5,12 +5,11 @@
  */
 package br.prof.salesfilho.arq.view.crud;
 
+import br.prof.salesfilho.arq.model.AbstractBean;
 import br.prof.salesfilho.arq.service.GenericService;
-import java.io.Serializable;
+import br.prof.salesfilho.arq.view.primefaces.GenericLazyDataModel;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -26,21 +25,20 @@ import javax.inject.Named;
  */
 @Named
 @ManagedBean
-public class GenericCrudMBean<T, K extends Serializable> extends BaseMBean {
-
-    private List<T> list = new ArrayList();
-    private Class<T> entityBeanClass;
-
-    private T bean;
+public class GenericCrudMBean<T extends AbstractBean, K> extends BaseMBean {
 
     @Inject
     private GenericService<T, K> genericService;
+    @Inject
+    private GenericLazyDataModel<T, K> list;
 
+    private Class<T> entityBeanClass;
+    private T bean;
+    
     public GenericCrudMBean() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         entityBeanClass = (Class) pt.getActualTypeArguments()[0];
-        createNewEntityBean();
     }
 
     public T getBean() {
@@ -51,37 +49,23 @@ public class GenericCrudMBean<T, K extends Serializable> extends BaseMBean {
         this.bean = bean;
     }
 
-    public List<T> getList() {
-        return this.list;
+    public GenericLazyDataModel<T, K> getList() {
+        return list;
     }
 
-    public void addToList(List<T> list) {
-        if (list != null && !list.isEmpty()) {
-            this.list.addAll(list);
-        }
-    }
-
-    public void removeFromList(List<T> list) {
-        if (list != null && !list.isEmpty()) {
-            this.list.removeAll(list);
-        }
-    }
-
-    public void removeItemFromList(T item) {
-        if (item != null) {
-            this.list.remove(item);
-        }
-    }
-
-    public void clearList() {
-        this.list.clear();
+    public void setList(GenericLazyDataModel<T, K> list) {
+        this.list = list;
     }
 
     /**
      * Prepara view adicionar
-     */
-    public void startInsert() {
-        this.setCurrentState(INSERT_STATE);
+    */
+    @Override
+    public void changeToInsertState() {
+        setCurrentState(INSERT_STATE);
+        if(this.bean == null){
+            createNewEntityBean();
+        }
     }
 
     /**
@@ -130,7 +114,6 @@ public class GenericCrudMBean<T, K extends Serializable> extends BaseMBean {
         try {
             T auxBean = genericService.findOne(id);
             genericService.delete(auxBean);
-            removeItemFromList(auxBean);
             addMessage(FacesMessage.SEVERITY_INFO, "Exclusão: ", "Operação realizada com sucesso.");
         } catch (Exception e) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Falha ao excluir registro.", e.getMessage());

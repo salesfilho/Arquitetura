@@ -19,7 +19,7 @@ public abstract class BaseMBean implements Serializable {
     public static final String INSERT_STATE = "adicionar";
     public static final String UPDATE_STATE = "editar";
 
-    private String currentState = SEARCH_STATE;
+    private String currentState = LIST_STATE;
 
     /* 
      * Métodos que expõem o estado à página 

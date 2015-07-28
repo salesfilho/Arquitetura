@@ -5,9 +5,10 @@
  */
 package br.prof.salesfilho.arq.service;
 
+import br.prof.salesfilho.arq.model.AbstractBean;
 import br.prof.salesfilho.arq.persistence.GenericDAO;
-import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Named
 @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = {"ServiceException.class"})
-public class GenericService<T, K extends Serializable> {
+public class GenericService<T extends AbstractBean, K> {
 
     @Inject
     private GenericDAO<T, K> genericDao;
@@ -31,9 +32,7 @@ public class GenericService<T, K extends Serializable> {
     }
 
     public void insertAll(List<T> entityList) {
-        for (T entity : entityList) {
-            insert(entity);
-        }
+        genericDao.insertAll(entityList);
     }
 
     public T update(T entity) {
@@ -41,9 +40,7 @@ public class GenericService<T, K extends Serializable> {
     }
 
     public void updateAll(List<T> entityList) {
-        for (T entity : entityList) {
-            update(entity);
-        }
+        genericDao.updateAll(entityList);
     }
 
     public void delete(T entity) {
@@ -51,9 +48,7 @@ public class GenericService<T, K extends Serializable> {
     }
 
     public void deleteAll(List<T> entityList) {
-        for (T entity : entityList) {
-            delete(entity);
-        }
+        genericDao.deletetAll(entityList);
     }
 
     @Transactional(readOnly = true)
@@ -64,6 +59,21 @@ public class GenericService<T, K extends Serializable> {
     @Transactional(readOnly = true)
     public List<T> findAll() {
         return genericDao.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<T> findPage(int startingAt, int maxPerPage) {
+        return genericDao.findPage(startingAt, maxPerPage);
+    }
+
+    @Transactional(readOnly = true)
+    public List<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
+        return genericDao.findPage(first, pageSize, sortField, sortOrderAsc, filters);
+    }
+
+    @Transactional(readOnly = true)
+    public int countAll() {
+        return genericDao.countAll();
     }
 
     public void checkBeforeInsert(T entity) throws ServiceException {

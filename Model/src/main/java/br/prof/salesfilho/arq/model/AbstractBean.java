@@ -12,11 +12,10 @@ import java.util.Objects;
  * @author salesfilho
  * @param <K>
  */
-public class AbstractBean<K> implements IEntityBean<K> {
+public class AbstractBean<K> {
 
     private K id;
 
-    @Override
     public K getId() {
         return id;
     }
