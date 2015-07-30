@@ -51,10 +51,6 @@ public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataMod
         return null;
     }
 
-    public int getAtualRowCount() {
-        return datasource.size();
-    }
-
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         datasource = loadData(first, pageSize, sortField, sortOrder, filters);
@@ -63,11 +59,7 @@ public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataMod
 
     private List<T> loadData(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         Boolean order = sortOrder.equals(SortOrder.ASCENDING);
-        if (!filters.isEmpty()) {
-            this.setRowCount(genericService.countPage(first, pageSize, sortField, order, filters));
-        } else {
-            this.setRowCount(genericService.countAll());
-        }
+        setRowCount(genericService.countPage(first, pageSize, sortField, order, filters));
         return genericService.findPage(first, pageSize, sortField, order, filters);
     }
 

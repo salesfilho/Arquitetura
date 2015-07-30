@@ -7,9 +7,6 @@ package br.prof.salesfilho.arq.demo.service;
 
 import br.prof.salesfilho.arq.service.GenericService;
 import br.prof.salesfilho.arq.demo.model.Contato;
-import br.prof.salesfilho.arq.demo.persistence.ContatoDAO;
-import java.util.List;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
