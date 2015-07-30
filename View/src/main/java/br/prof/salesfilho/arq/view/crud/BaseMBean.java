@@ -5,10 +5,7 @@
  */
 package br.prof.salesfilho.arq.view.crud;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -66,8 +63,6 @@ public abstract class BaseMBean implements Serializable {
         setCurrentState(UPDATE_STATE);
     }
 
-
-    
     /**
      *
      * @param summary
@@ -78,21 +73,4 @@ public abstract class BaseMBean implements Serializable {
         FacesMessage message = new FacesMessage(severity, summary, datail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-
-    /**
-     *
-     * @param page Informar a página dentro do contexto web da aplicação
-     */
-    public void redirectToPage(String page) {
-
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect(
-                    FacesContext.getCurrentInstance().
-                    getExternalContext().getRequestContextPath() + page);
-        } catch (IOException ex) {
-            Logger.getLogger(BaseMBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
 }

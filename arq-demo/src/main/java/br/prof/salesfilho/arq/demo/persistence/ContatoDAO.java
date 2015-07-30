@@ -7,9 +7,6 @@ package br.prof.salesfilho.arq.demo.persistence;
 
 import br.prof.salesfilho.arq.persistence.GenericDAO;
 import br.prof.salesfilho.arq.demo.model.Contato;
-import br.prof.salesfilho.arq.demo.model.QContato;
-import com.mysema.query.jpa.impl.JPAQuery;
-import java.util.List;
 import javax.inject.Named;
 
 /**
@@ -19,6 +16,7 @@ import javax.inject.Named;
 @Named
 public class ContatoDAO extends GenericDAO<Contato, Long> {
 
+    /*
     private JPAQuery query;
     private QContato qContato = QContato.contato;
 
@@ -29,4 +27,5 @@ public class ContatoDAO extends GenericDAO<Contato, Long> {
         contatos = query.from(qContato).where(qContato.nome.containsIgnoreCase(nome)).list(qContato);
         return contatos;
     }
+    */
 }

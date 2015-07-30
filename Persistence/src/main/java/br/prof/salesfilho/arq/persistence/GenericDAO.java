@@ -6,6 +6,7 @@
 package br.prof.salesfilho.arq.persistence;
 
 import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.Page;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Iterator;
@@ -126,7 +127,7 @@ public class GenericDAO<T extends AbstractBean, K> implements InterfaceGenericDA
     }
 
     @Override
-    public List<T> findPage(int startingAt, int maxPerPage) {
+    public List<T> findRange(int startingAt, int maxPerPage) {
         Query query;
         query = this.entityManager.createQuery("SELECT t FROM " + this.entityClass.getSimpleName() + " t");
         query.setFirstResult(startingAt);
@@ -167,6 +168,27 @@ public class GenericDAO<T extends AbstractBean, K> implements InterfaceGenericDA
         typedQuery.setMaxResults(first + pageSize);
 
         return typedQuery.getResultList();
+    }
+
+    @Override
+    public int countPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(entityClass);
+        Root<T> from = query.from(entityClass);
+
+        Predicate predicate = builder.and();
+
+        if (!filters.isEmpty()) {
+            Iterator<Entry<String, Object>> iterator = filters.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Entry<String, Object> entry = iterator.next();
+                //Adiciona os filtros
+                predicate = builder.and(predicate, builder.like(builder.lower(from.<String>get(entry.getKey())), "%" + entry.getValue().toString().toLowerCase() + "%"));
+            }
+        }
+        TypedQuery<T> typedQuery = entityManager.createQuery(query.select(from).where(predicate));
+        return typedQuery.getResultList().size();
     }
 
     @Override

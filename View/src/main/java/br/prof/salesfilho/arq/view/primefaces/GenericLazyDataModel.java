@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SelectableDataModel;
 import org.primefaces.model.SortOrder;
 
 /**
@@ -23,15 +24,16 @@ import org.primefaces.model.SortOrder;
  * @param <K>
  */
 @Named
-public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataModel<T> {
+public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataModel<T> implements SelectableDataModel<T> {
 
     @Inject
     private GenericService<T, K> genericService;
 
-    private List<T> dataSource = new ArrayList();
+    private List<T> datasource = null;
 
     @PostConstruct
     public void init() {
+        datasource = new ArrayList();
     }
 
     @Override
@@ -41,7 +43,7 @@ public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataMod
 
     @Override
     public T getRowData(String rowKey) {
-        for (T entity : dataSource) {
+        for (T entity : datasource) {
             if (rowKey.equalsIgnoreCase(entity.getId().toString())) {
                 return entity;
             }
@@ -49,12 +51,24 @@ public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataMod
         return null;
     }
 
+    public int getAtualRowCount() {
+        return datasource.size();
+    }
+
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        boolean order = sortOrder.equals(SortOrder.ASCENDING);
-        setRowCount(genericService.countAll());
-        dataSource = genericService.findPage(first, pageSize, sortField, order, filters);
-        return dataSource;
+        datasource = loadData(first, pageSize, sortField, sortOrder, filters);
+        return datasource;
+    }
+
+    private List<T> loadData(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        Boolean order = sortOrder.equals(SortOrder.ASCENDING);
+        if (!filters.isEmpty()) {
+            this.setRowCount(genericService.countPage(first, pageSize, sortField, order, filters));
+        } else {
+            this.setRowCount(genericService.countAll());
+        }
+        return genericService.findPage(first, pageSize, sortField, order, filters);
     }
 
 }

@@ -8,6 +8,7 @@ package br.prof.salesfilho.arq.view.crud;
 import br.prof.salesfilho.arq.model.AbstractBean;
 import br.prof.salesfilho.arq.service.GenericService;
 import br.prof.salesfilho.arq.view.primefaces.GenericLazyDataModel;
+import br.prof.salesfilho.arq.view.primefaces.LazyDataModelView;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
@@ -30,11 +31,11 @@ public class GenericCrudMBean<T extends AbstractBean, K> extends BaseMBean {
     @Inject
     private GenericService<T, K> genericService;
     @Inject
-    private GenericLazyDataModel<T, K> list;
+    private LazyDataModelView<T,K> dataModel;
 
     private Class<T> entityBeanClass;
     private T bean;
-    
+
     public GenericCrudMBean() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
@@ -49,21 +50,22 @@ public class GenericCrudMBean<T extends AbstractBean, K> extends BaseMBean {
         this.bean = bean;
     }
 
-    public GenericLazyDataModel<T, K> getList() {
-        return list;
+    public LazyDataModelView<T, K> getDataModel() {
+        return dataModel;
     }
 
-    public void setList(GenericLazyDataModel<T, K> list) {
-        this.list = list;
+    public void setDataModel(LazyDataModelView<T, K> dataModel) {
+        this.dataModel = dataModel;
     }
+    
 
     /**
      * Prepara view adicionar
-    */
+     */
     @Override
     public void changeToInsertState() {
         setCurrentState(INSERT_STATE);
-        if(this.bean == null){
+        if (this.bean == null) {
             createNewEntityBean();
         }
     }

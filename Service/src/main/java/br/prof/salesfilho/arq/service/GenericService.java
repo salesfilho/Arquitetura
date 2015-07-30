@@ -6,6 +6,7 @@
 package br.prof.salesfilho.arq.service;
 
 import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.Page;
 import br.prof.salesfilho.arq.persistence.GenericDAO;
 import java.util.List;
 import java.util.Map;
@@ -62,13 +63,17 @@ public class GenericService<T extends AbstractBean, K> {
     }
 
     @Transactional(readOnly = true)
-    public List<T> findPage(int startingAt, int maxPerPage) {
-        return genericDao.findPage(startingAt, maxPerPage);
+    public List<T> findRange(int startingAt, int maxPerPage) {
+        return genericDao.findRange(startingAt, maxPerPage);
     }
 
     @Transactional(readOnly = true)
     public List<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
         return genericDao.findPage(first, pageSize, sortField, sortOrderAsc, filters);
+    }
+    @Transactional(readOnly = true)
+    public int countPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
+        return genericDao.countPage(first, pageSize, sortField, sortOrderAsc, filters);
     }
 
     @Transactional(readOnly = true)

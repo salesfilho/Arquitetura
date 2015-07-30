@@ -5,6 +5,7 @@
  */
 package br.prof.salesfilho.arq.persistence;
 
+import br.prof.salesfilho.arq.model.Page;
 import java.util.List;
 import java.util.Map;
 
@@ -34,9 +35,11 @@ public interface InterfaceGenericDAO<T, K> {
 
     public List<T> findAll();
 
-    public List<T> findPage(int startingAt, int maxPerPage);
+    public List<T> findRange(int startingAt, int maxPerPage);
 
     public List<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters);
+
+    public int countPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters);
 
     public int countAll();
 

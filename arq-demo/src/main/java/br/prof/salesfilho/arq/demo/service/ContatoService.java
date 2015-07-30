@@ -18,10 +18,6 @@ import javax.inject.Named;
  */
 @Named
 public class ContatoService extends GenericService<Contato, Long>{
-    @Inject
-    private ContatoDAO dao;
-    
-    public List<Contato>findByName(String nome){
-        return dao.findByName(nome);
-    }
+    //@Inject
+    //private ContatoDAO dao;
 }
