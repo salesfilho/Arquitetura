@@ -137,7 +137,10 @@ public class GenericDAO<T extends AbstractBean, K> implements InterfaceGenericDA
     }
 
     @Override
-    public List<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
+    public Page<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
+
+        TypedQuery<T> typedQuery = null;
+        Page page = new Page();
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(entityClass);
@@ -153,8 +156,13 @@ public class GenericDAO<T extends AbstractBean, K> implements InterfaceGenericDA
                 predicate = builder.and(predicate, builder.like(builder.lower(from.<String>get(entry.getKey())), "%" + entry.getValue().toString().toLowerCase() + "%"));
             }
         }
+
+        //Popula a pagina de retorno com a qtde de registros decorrente do filtro
+        typedQuery = entityManager.createQuery(query.select(from).where(predicate));
+        page.setTotalRecords(typedQuery.getResultList().size());
+
         //Realiza a ordenacao
-        TypedQuery<T> typedQuery = entityManager.createQuery(query.select(from).where(predicate));
+        typedQuery = entityManager.createQuery(query.select(from).where(predicate));
         if (sortField != null) {
             if (!sortOrderAsc) {
                 typedQuery = entityManager.createQuery(query.select(from).where(predicate).orderBy(builder.asc(from.get(sortField))));
@@ -167,28 +175,9 @@ public class GenericDAO<T extends AbstractBean, K> implements InterfaceGenericDA
         typedQuery.setFirstResult(first);
         typedQuery.setMaxResults(first + pageSize);
 
-        return typedQuery.getResultList();
-    }
-
-    @Override
-    public int countPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
-
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(entityClass);
-        Root<T> from = query.from(entityClass);
-
-        Predicate predicate = builder.and();
-
-        if (!filters.isEmpty()) {
-            Iterator<Entry<String, Object>> iterator = filters.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Entry<String, Object> entry = iterator.next();
-                //Adiciona os filtros
-                predicate = builder.and(predicate, builder.like(builder.lower(from.<String>get(entry.getKey())), "%" + entry.getValue().toString().toLowerCase() + "%"));
-            }
-        }
-        TypedQuery<T> typedQuery = entityManager.createQuery(query.select(from).where(predicate));
-        return typedQuery.getResultList().size();
+        //Popula a pagina de retorno com a qtde de registros decorrente do filtro
+        page.setRows(typedQuery.getResultList());
+        return page;
     }
 
     @Override

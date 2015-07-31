@@ -15,25 +15,25 @@ import java.util.List;
  * @param <T>
  */
 public class Page<T> implements Serializable {
-    private int rowCount;
+    private int totalRecords;
     private List<T> rows;
 
     public Page() {
-        this.rowCount = 0;
+        this.totalRecords = 0;
         this.rows = new ArrayList();
     }
     public Page(int rowCount, List<T> rows) {
-        this.rowCount = rowCount;
+        this.totalRecords = rowCount;
         this.rows = rows;
     }
 
     
-    public int getRowCount() {
-        return rowCount;
+    public int getTotalRecords() {
+        return totalRecords;
     }
 
-    public void setRowCount(int rowCount) {
-        this.rowCount = rowCount;
+    public void setTotalRecords(int rowCount) {
+        this.totalRecords = rowCount;
     }
 
     public List<T> getRows() {

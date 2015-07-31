@@ -37,9 +37,7 @@ public interface InterfaceGenericDAO<T, K> {
 
     public List<T> findRange(int startingAt, int maxPerPage);
 
-    public List<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters);
-
-    public int countPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters);
+    public Page<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters);
 
     public int countAll();
 

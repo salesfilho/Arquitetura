@@ -6,6 +6,7 @@
 package br.prof.salesfilho.arq.view.primefaces;
 
 import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.Page;
 import br.prof.salesfilho.arq.service.GenericService;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,11 @@ public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataMod
     @Inject
     private GenericService<T, K> genericService;
 
-    private List<T> datasource = null;
+    private Page<T> page = new Page();
 
     @PostConstruct
     public void init() {
-        datasource = new ArrayList();
+
     }
 
     @Override
@@ -43,7 +44,7 @@ public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataMod
 
     @Override
     public T getRowData(String rowKey) {
-        for (T entity : datasource) {
+        for (T entity : page.getRows()) {
             if (rowKey.equalsIgnoreCase(entity.getId().toString())) {
                 return entity;
             }
@@ -53,14 +54,9 @@ public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataMod
 
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        datasource = loadData(first, pageSize, sortField, sortOrder, filters);
-        return datasource;
-    }
-
-    private List<T> loadData(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         Boolean order = sortOrder.equals(SortOrder.ASCENDING);
-        setRowCount(genericService.countPage(first, pageSize, sortField, order, filters));
-        return genericService.findPage(first, pageSize, sortField, order, filters);
+        page = genericService.findPage(first, pageSize, sortField, order, filters);
+        setRowCount(page.getTotalRecords());
+        return page.getRows();
     }
-
 }

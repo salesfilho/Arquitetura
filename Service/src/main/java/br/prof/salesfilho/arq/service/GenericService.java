@@ -68,12 +68,8 @@ public class GenericService<T extends AbstractBean, K> {
     }
 
     @Transactional(readOnly = true)
-    public List<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
+    public Page<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
         return genericDao.findPage(first, pageSize, sortField, sortOrderAsc, filters);
-    }
-    @Transactional(readOnly = true)
-    public int countPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
-        return genericDao.countPage(first, pageSize, sortField, sortOrderAsc, filters);
     }
 
     @Transactional(readOnly = true)

@@ -31,7 +31,7 @@ public class GenericCrudMBean<T extends AbstractBean, K> extends BaseMBean {
     @Inject
     private GenericService<T, K> genericService;
     @Inject
-    private LazyDataModelView<T,K> dataModel;
+    private GenericLazyDataModel<T, K> dataModel;
 
     private Class<T> entityBeanClass;
     private T bean;
@@ -50,14 +50,9 @@ public class GenericCrudMBean<T extends AbstractBean, K> extends BaseMBean {
         this.bean = bean;
     }
 
-    public LazyDataModelView<T, K> getDataModel() {
+    public GenericLazyDataModel<T, K> getDataModel() {
         return dataModel;
     }
-
-    public void setDataModel(LazyDataModelView<T, K> dataModel) {
-        this.dataModel = dataModel;
-    }
-    
 
     /**
      * Prepara view adicionar

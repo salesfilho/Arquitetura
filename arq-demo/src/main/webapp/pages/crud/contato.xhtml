@@ -32,15 +32,16 @@
                 <p:commandButton value="Novo" actionListener="#{contatoCrudMBean.changeToInsertState()}" update="@form"/>  
 
                 <p:dataTable id="list_lazyDataTable" 
-                             value="#{contatoCrudMBean.dataModel.lazyModel}"
+                             value="#{contatoCrudMBean.dataModel}"
                              var="contato"
                              rendered="true"
                              lazy="true"
                              selectionMode="single"
-                             selection="#{contatoCrudMBean.dataModel.selected}"
-                             paginator="true" paginatorPosition="bottom"
+                             selection="#{contatoCrudMBean.bean}"
+                             paginator="true" paginatorPosition="bottom" 
                              rows="10"
                              emptyMessage="Nenhum registro encontrado."
+                             currentPageReportTemplate="Exibindo {startRecord} a {endRecord} do total {totalRecords} registros."
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15">
 
@@ -66,12 +67,13 @@
                         </p:commandButton>
                     </p:column>
                     <f:facet name="footer">  
-                        #{contatoCrudMBean.dataModel.lazyModel.rowCount} registros armazenados.
+                        
                     </f:facet>  
                 </p:dataTable>
 
             </p:column>
         </h:panelGrid>
+
     </ui:define>  
 
     <!-- Bloco de Insert -->
