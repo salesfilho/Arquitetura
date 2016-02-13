@@ -12,9 +12,8 @@
         <module>Security</module>
         <module>Persistence</module>
         <module>Service</module>
-        <module>demo</module>
-    <module>arq-demo</module>
-  </modules>
+        <module>arq-demo</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.springframework.version>4.1.6.RELEASE</org.springframework.version>
@@ -48,6 +47,23 @@
             <artifactId>javax.inject</artifactId>
             <version>1</version>
             <type>jar</type>
+        </dependency>
+
+        <!--  Jave EE  -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <type>jar</type>
+        </dependency>
+
+        <!--  Lombok  -->
+
+        <dependency> 
+            <groupId>org.projectlombok</groupId> 
+            <artifactId>lombok</artifactId> 
+            <version>1.16.6</version> 
+            <scope>provided</scope> 
         </dependency>
 
         <!--  Spring  -->

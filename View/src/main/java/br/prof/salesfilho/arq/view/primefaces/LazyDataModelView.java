@@ -5,7 +5,7 @@
  */
 package br.prof.salesfilho.arq.view.primefaces;
 
-import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.GenericModelBean;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -21,7 +21,7 @@ import org.primefaces.model.LazyDataModel;
  * @param <T>
  */
 @Named
-public class LazyDataModelView<T extends AbstractBean, K> implements Serializable {
+public class LazyDataModelView<T extends GenericModelBean, K> implements Serializable {
 
     @Inject
     private LazyDataModel<T> lazyModel;

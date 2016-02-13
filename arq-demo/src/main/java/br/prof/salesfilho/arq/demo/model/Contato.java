@@ -5,50 +5,27 @@
  */
 package br.prof.salesfilho.arq.demo.model;
 
-import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.GenericModelBean;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
  * @author salesfilho
  */
 @Entity
-@SequenceGenerator(name = "ID_CONTATO", sequenceName = "sq_contato", allocationSize = 1)
-public class Contato extends AbstractBean<Long> {
+@Getter
+@Setter
+@ToString(callSuper = false)
+@EqualsAndHashCode(callSuper = false)
+@SequenceGenerator(name = "ID", sequenceName = "sq_contato", allocationSize = 1)
+public class Contato extends GenericModelBean<Long> {
 
     private String nome;
     private String email;
-
-    @Id()
-    @GeneratedValue(generator = "ID_CONTATO", strategy = GenerationType.SEQUENCE)
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "{nome=" + this.nome + ", email=" + this.email + "}"; 
-    }
 
 }

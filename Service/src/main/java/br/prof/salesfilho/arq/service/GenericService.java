@@ -5,7 +5,7 @@
  */
 package br.prof.salesfilho.arq.service;
 
-import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.GenericModelBean;
 import br.prof.salesfilho.arq.model.Page;
 import br.prof.salesfilho.arq.persistence.GenericDAO;
 import java.util.List;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Named
 @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = {"ServiceException.class"})
-public class GenericService<T extends AbstractBean, K> {
+public class GenericService<T extends GenericModelBean, K> {
 
     @Inject
     private GenericDAO<T, K> genericDao;

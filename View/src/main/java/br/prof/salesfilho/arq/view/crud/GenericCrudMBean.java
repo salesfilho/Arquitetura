@@ -5,10 +5,9 @@
  */
 package br.prof.salesfilho.arq.view.crud;
 
-import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.GenericModelBean;
 import br.prof.salesfilho.arq.service.GenericService;
 import br.prof.salesfilho.arq.view.primefaces.GenericLazyDataModel;
-import br.prof.salesfilho.arq.view.primefaces.LazyDataModelView;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
@@ -26,7 +25,7 @@ import javax.inject.Named;
  */
 @Named
 @ManagedBean
-public class GenericCrudMBean<T extends AbstractBean, K> extends BaseMBean {
+public class GenericCrudMBean<T extends GenericModelBean, K> extends BaseMBean {
 
     @Inject
     private GenericService<T, K> genericService;

@@ -5,7 +5,7 @@
  */
 package br.prof.salesfilho.arq.persistence;
 
-import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.GenericModelBean;
 import br.prof.salesfilho.arq.model.Page;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -20,6 +20,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -30,7 +31,7 @@ import javax.persistence.criteria.Root;
  * @param <K>
  */
 @Named
-public class GenericDAO<T extends AbstractBean, K> implements InterfaceGenericDAO<T, K> {
+public class GenericDAO<T extends GenericModelBean, K> implements InterfaceGenericDAO<T, K> {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -140,6 +141,7 @@ public class GenericDAO<T extends AbstractBean, K> implements InterfaceGenericDA
     public Page<T> findPage(int first, int pageSize, String sortField, boolean sortOrderAsc, Map<String, Object> filters) {
 
         TypedQuery<T> typedQuery = null;
+        TypedQuery typedQueryCount = null;
         Page page = new Page();
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -157,12 +159,12 @@ public class GenericDAO<T extends AbstractBean, K> implements InterfaceGenericDA
             }
         }
 
-        //Popula a pagina de retorno com a qtde de registros decorrente do filtro
+        //Realiza a ordenacao
+        builder.count(from);
         typedQuery = entityManager.createQuery(query.select(from).where(predicate));
         page.setTotalRecords(typedQuery.getResultList().size());
-
-        //Realiza a ordenacao
-        typedQuery = entityManager.createQuery(query.select(from).where(predicate));
+        
+        
         if (sortField != null) {
             if (!sortOrderAsc) {
                 typedQuery = entityManager.createQuery(query.select(from).where(predicate).orderBy(builder.asc(from.get(sortField))));

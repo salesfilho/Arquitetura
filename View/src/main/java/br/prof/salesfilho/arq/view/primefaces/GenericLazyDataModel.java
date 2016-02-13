@@ -5,10 +5,9 @@
  */
 package br.prof.salesfilho.arq.view.primefaces;
 
-import br.prof.salesfilho.arq.model.AbstractBean;
+import br.prof.salesfilho.arq.model.GenericModelBean;
 import br.prof.salesfilho.arq.model.Page;
 import br.prof.salesfilho.arq.service.GenericService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -25,7 +24,7 @@ import org.primefaces.model.SortOrder;
  * @param <K>
  */
 @Named
-public class GenericLazyDataModel<T extends AbstractBean, K> extends LazyDataModel<T> implements SelectableDataModel<T> {
+public class GenericLazyDataModel<T extends GenericModelBean, K> extends LazyDataModel<T> implements SelectableDataModel<T> {
 
     @Inject
     private GenericService<T, K> genericService;

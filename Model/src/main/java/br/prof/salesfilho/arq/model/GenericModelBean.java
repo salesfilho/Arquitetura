@@ -5,15 +5,23 @@
  */
 package br.prof.salesfilho.arq.model;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 /**
  *
  * @author salesfilho
  * @param <K>
  */
-public class AbstractBean<K> {
+@MappedSuperclass
+public abstract class GenericModelBean<K> implements Serializable {
 
+    @Id
+    @GeneratedValue(generator = "ID", strategy = GenerationType.SEQUENCE)
     private K id;
 
     public K getId() {
@@ -39,7 +47,7 @@ public class AbstractBean<K> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final AbstractBean<?> other = (AbstractBean<?>) obj;
+        final GenericModelBean<?> other = (GenericModelBean<?>) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
