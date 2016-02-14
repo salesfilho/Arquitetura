@@ -12,7 +12,19 @@
     <!-- Configuracao da aparencia do primefaces  -->
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>bluesky</param-value>
+        <!-- param-value>bluesky</param-value -->
+        <!-- param-value>redmond</param-value -->
+        <!--param-value>sam</param-value-->
+        <!--param-value>smoothness</param-value-->
+        <param-value>bootstrap</param-value>
+        <!--param-value>cupertino</param-value -->
+        <!--param-value>casablanca</param-value -->
+        <!-- param-value>south-street</param-value -->
+        <!-- param-value>aristo</param-value -->
+        <!-- param-value>hot-sneaks</param-value -->
+        <!--param-value>afterdark</param-value-->
+        <!--param-value>sunny</param-value-->
+        <!--param-value>afterwork</param-value-->
     </context-param>
 
     <!--  Configura o spring para usar javaConfig -->

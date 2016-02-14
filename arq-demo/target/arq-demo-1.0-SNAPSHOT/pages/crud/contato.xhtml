@@ -60,7 +60,7 @@
                     <p:column headerText="E-mail" sortBy="#{contato.email}" filterBy="#{contato.email}">
                         <h:outputText value="#{contato.email}" />
                     </p:column>
-                    <p:column headerText="AÇOES" style="alignment-adjust: central">
+                    <p:column headerText="AÇOES" width="120" style="alignment-adjust: central" >
                         <p:commandButton actionListener="#{contatoCrudMBean.startUpdate(contato.id)}" update="@form" icon="ui-icon-pencil" title="Editar" />
                         <p:commandButton actionListener="#{contatoCrudMBean.processDelete(contato.id)}" update="@form" icon="ui-icon-close" title="Excluir" >
                             <p:confirm header="Confirmação" message="Tem certeza que deseja excluir o registro?" icon="ui-icon-alert"/>

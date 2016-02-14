@@ -10,13 +10,25 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:form id="form_menu_principal">  
+        
         <p:menubar>
-            <p:submenu label="Gerenciar" icon="ui-icon-document">
-                <p:menuitem value="Contato" url="/pages/crud/contato.xhtml" />
+            <p:submenu label="Monitoramento" icon="ui-icon-clock">
+                <p:menuitem value="Monitoramento-1" url="/pages/crud/contato.xhtml" />
+                <p:menuitem value="Monitoramento-2" url="/pages/crud/contato.xhtml" />
+                <p:menuitem value="Monitoramento-3" url="/pages/crud/contato.xhtml" />
             </p:submenu>
-            <f:facet name="options">
-                <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
-            </f:facet>
+            <p:submenu label="Controle" icon="ui-icon-gear">
+                <p:menuitem value="Controle-1" url="/pages/crud/contato.xhtml" />
+                <p:menuitem value="Controle-2" url="/pages/crud/contato.xhtml" />
+                <p:menuitem value="Controle-3" url="/pages/crud/contato.xhtml" />
+            </p:submenu>
+            <p:submenu label="Suporte" icon="ui-icon-contact">
+                <p:menuitem value="Suporte-1" url="/pages/crud/contato.xhtml" />
+                <p:menuitem value="Suporte-2" url="/pages/crud/contato.xhtml" />
+                <p:menuitem value="Suporte-3" url="/pages/crud/contato.xhtml" />
+            </p:submenu>
+            
         </p:menubar>
+
     </h:form>    
 </ui:composition>
