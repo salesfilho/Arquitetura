@@ -4,7 +4,7 @@
     <parent>
         <artifactId>arquitetura</artifactId>
         <groupId>br.prof.salesfilho</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <groupId>br.prof.salesfilho</groupId>
@@ -23,7 +23,7 @@
         <dependency>
             <groupId>br.prof.salesfilho</groupId>
             <artifactId>Persistence</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>br.prof.salesfilho</groupId>
             <artifactId>Model</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>

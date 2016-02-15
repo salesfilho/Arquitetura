@@ -6,7 +6,7 @@
     <parent>
         <groupId>br.prof.salesfilho</groupId>
         <artifactId>arquitetura</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <artifactId>Persistence</artifactId>
     <packaging>jar</packaging>
