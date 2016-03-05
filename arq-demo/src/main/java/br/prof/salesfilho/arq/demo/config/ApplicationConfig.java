@@ -38,7 +38,7 @@ public class ApplicationConfig {
         InputStream stream;
         Properties dataBaseProperties = new Properties();
         try {
-            stream = getClass().getClassLoader().getResourceAsStream("/database.properties");
+            stream = getClass().getClassLoader().getResourceAsStream("/config/database.properties");
             if (stream != null) {
                 dataBaseProperties.load(stream);
                 System.out.println("Configuracoes de banco carregadas da aplicação...");

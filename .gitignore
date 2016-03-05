@@ -1,2 +1,8 @@
 /Commons/target/
 /security/target/
+/arquitetura-view/target/
+/arquitetura-service/target/
+/arquitetura-persistence/target/
+/arquitetura-commons/target/
+/arquitetura-model/target/
+/arquitetura-security/target/

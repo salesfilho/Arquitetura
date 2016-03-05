@@ -1,5 +1,6 @@
 /Users/salesfilho/NetBeansProjects/arquitetura/arq-demo/src/main/java/br/prof/salesfilho/arq/demo/view/ContatoCrudMBean.java
 /Users/salesfilho/NetBeansProjects/arquitetura/arq-demo/src/main/java/br/prof/salesfilho/arq/demo/model/Contato.java
+/Users/salesfilho/NetBeansProjects/arquitetura/arq-demo/src/main/java/br/prof/salesfilho/arq/demo/testes/CalculadoraMatematica.java
 /Users/salesfilho/NetBeansProjects/arquitetura/arq-demo/src/main/java/br/prof/salesfilho/arq/demo/service/ContatoService.java
 /Users/salesfilho/NetBeansProjects/arquitetura/arq-demo/src/main/java/br/prof/salesfilho/arq/demo/config/ApplicationConfig.java
 /Users/salesfilho/NetBeansProjects/arquitetura/arq-demo/src/main/java/br/prof/salesfilho/arq/demo/persistence/ContatoDAO.java
